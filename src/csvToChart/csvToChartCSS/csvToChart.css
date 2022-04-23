@@ -1,0 +1,21 @@
+.centerDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.displayInRowCenter{
+    display: flex;
+    justify-content: center;
+}
+.LargeBoldCenterP{
+    font-weight: 700;
+    font-size: x-large;
+    text-align: center;
+    font-family: 'Prompt', sans-serif;
+}
+
+.displayInOneRowThreeItems{
+    display: inline-block;
+    width: 33.3%;
+}

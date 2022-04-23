@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+
+.fillColorHeat0{
+    fill: #ADD8E6;
+}
+
+
+.fillColorHeat1{
+    fill: #87CEEB;
+}
+
+.fillColorHeat2{
+    fill: #87CEFA;
+}
+
+.fillColorHeat3{
+    fill: #191970;
+}
+
+.fillColorHeat0:hover{
+    opacity: 0.75;
+}
+
+
+.fillColorHeat1:hover{
+    opacity: 0.75;
+}
+
+.fillColorHeat2:hover{
+    opacity: 0.75;
+}
+
+.fillColorHeat3:hover{
+    opacity: 0.75;
+}
+
+
+
+
+.examples {
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    position: fixed;
+    width: 200px;
+    padding: 10px;
+    border: 1px solid darkgray;
+    background-color: white;
+
+}
+
+.CountyMap{
+
+}
