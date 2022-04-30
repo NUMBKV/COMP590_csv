@@ -37,29 +37,31 @@ The csvToChart component is the main operation page of this visualization page, 
 
 Users can choose to make their own visualization according to url or file.
 
-![Screen Shot 2022-04-30 at 2.58.16 AM](/Users/zhiyuanzhang/Desktop/Screen Shot 2022-04-30 at 2.58.16 AM.png)
+![1](example_pict/1.png)
 
-![Screen Shot 2022-04-30 at 2.58.28 AM](/Users/zhiyuanzhang/Desktop/Screen Shot 2022-04-30 at 2.58.28 AM.png)
+![2](example_pict/2.png)
 
 
 
 - #### *Enter Url or Upload File*
 
-~~![Screen Shot 2022-04-30 at 2.59.35 AM](/Users/zhiyuanzhang/Desktop/Screen Shot 2022-04-30 at 2.59.35 AM.png)~~
+~~![3](example_pict/3.png)~~
 
-![Screen Shot 2022-04-30 at 2.59.47 AM](/Users/zhiyuanzhang/Desktop/Screen Shot 2022-04-30 at 2.59.47 AM.png)
+![4](example_pict/4.png)
+
+
 
 - #### *Select Attribute and Options to Visualize*
 
 Attribute identifies the subject of the data visualization, and options identifies the subject of each chart. Each option represent each chart list.
 
-![Screen Shot 2022-04-30 at 3.02.01 AM](/Users/zhiyuanzhang/Desktop/Screen Shot 2022-04-30 at 3.02.01 AM.png)
+![5](example_pict/5.png)
 
 - #### *Change Settings to Display Personalized Data Visualization Results*
 
 Users can choose whether to split and whether to remove outliers to achieve the goal of visualization. And users can customize Median Filters and Moving Average days for data analysis. The time period can be changed as well.
 
-![Screen Shot 2022-04-30 at 3.08.43 AM](/Users/zhiyuanzhang/Desktop/Screen Shot 2022-04-30 at 3.08.43 AM.png)
+![6](example_pict/6.png)
 
 - #### *Four Types of Charts*
 
