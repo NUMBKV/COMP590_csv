@@ -3,6 +3,11 @@ import {Button, Header, Modal} from "semantic-ui-react";
 import {FILE, SELECTED, selectionMapValue, UNSELECTED} from "./constValuesUtils";
 import CsvToChart from "../csvToChart/csvToChart";
 
+/*
+The CsvWeb component is the initial interface of csv visualization, providing users with a pop-up window;
+users can choose to make their own visualization according to url or file.
+*/
+
 export default class CsvWeb  extends Component{
     constructor(props) {
         super(props);
@@ -23,15 +28,8 @@ export default class CsvWeb  extends Component{
             </div>
         );
     }
-    showCsvToChart(){
-        return (
-            <div>
-                {<CsvToChart name = {this.state.selectionValue}/>}
-            </div>
-        );
 
-    }
-
+    //pop-up window that can choose the visualization type
     showModal(){
         return (<div>
             <Modal
@@ -65,6 +63,8 @@ export default class CsvWeb  extends Component{
         </div>);
     }
 
+
+    //choose the visualization type
     setUrlFileButton(url, file){
         let value = "url";
         if(file === SELECTED){
@@ -76,6 +76,7 @@ export default class CsvWeb  extends Component{
         this.setState({urlOnButton: url, fileOnButton: file});
     }
 
+    //close the window
     closeModal(){
         if(this.state.urlOnButton === SELECTED || this.state.fileOnButton === SELECTED){
             this.setState({open: false});

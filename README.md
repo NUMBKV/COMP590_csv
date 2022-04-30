@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# COMP590 CSV Visualization
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This CSV Visualization project provides users with two visualization options to visualize COVID-19-related data through urls or files. After successfully loading the CSV data, the user can select a certain attribute to be visualized, and select multiple values corresponding to this attribute as the main of each visualization table. The y-axis of the chart is the main content of this CSV, such as confimed case data or vaccination data. The x-axis is the time period.
 
-## Available Scripts
+In addition, our visualization project provides a lot of personalization settings for better user interaction. Users can adjust the size of the grid to layout and select time periods for data visualization according to their own preferences. For the data visualization itself, users can choose whether to split and whether to remove outliers to achieve the goal of visualization. And users can customize Median Filters and Moving Average days for data analysis.
 
-In the project directory, you can run:
+## Get started
 
-### `npm start`
+```shell
+npm install
+npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open http://localhost:3000 to view the project in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Website Link
 
-### `npm test`
+[comp590-csv-visualization.surge.sh](comp590-csv-visualization.surge.sh)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Implement Details
 
-### `npm run build`
+- #### src/csvWeb/csvWeb.js
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The CsvWeb component is the initial interface of CSV Visualization, providing users with a pop-up window; users can choose to make their own visualization according to url or file.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- #### src/csvToChart/csvUtil.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+For the incoming CSV file or url, the corresponding functions perform corresponding parsing operations, providing usable data for visualization.
 
-### `npm run eject`
+- #### src/csvToChart/csvToChart.js
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The csvToChart component is the main operation page of this visualization page, providing the function of uploading the CSV file to be analyzed. The main page includes a personalized grid layout, options for split and outliers, custom Median Filters and Moving Average days, and options for visual analysis time periods. The result charts of visualization are displayed by this component.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Important Functions
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- #### *Window to Select CSV File or Url*
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Users can choose to make their own visualization according to url or file.
 
-## Learn More
+![Screen Shot 2022-04-30 at 2.58.16 AM](/Users/zhiyuanzhang/Desktop/Screen Shot 2022-04-30 at 2.58.16 AM.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Screen Shot 2022-04-30 at 2.58.28 AM](/Users/zhiyuanzhang/Desktop/Screen Shot 2022-04-30 at 2.58.28 AM.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- #### *Enter Url or Upload File*
 
-### Analyzing the Bundle Size
+~~![Screen Shot 2022-04-30 at 2.59.35 AM](/Users/zhiyuanzhang/Desktop/Screen Shot 2022-04-30 at 2.59.35 AM.png)~~
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![Screen Shot 2022-04-30 at 2.59.47 AM](/Users/zhiyuanzhang/Desktop/Screen Shot 2022-04-30 at 2.59.47 AM.png)
 
-### Making a Progressive Web App
+- #### *Select Attribute and Options to Visualize*
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Attribute identifies the subject of the data visualization, and options identifies the subject of each chart. Each option represent each chart list.
 
-### Advanced Configuration
+![Screen Shot 2022-04-30 at 3.02.01 AM](/Users/zhiyuanzhang/Desktop/Screen Shot 2022-04-30 at 3.02.01 AM.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- #### *Change Settings to Display Personalized Data Visualization Results*
 
-### Deployment
+Users can choose whether to split and whether to remove outliers to achieve the goal of visualization. And users can customize Median Filters and Moving Average days for data analysis. The time period can be changed as well.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+![Screen Shot 2022-04-30 at 3.08.43 AM](/Users/zhiyuanzhang/Desktop/Screen Shot 2022-04-30 at 3.08.43 AM.png)
 
-### `npm run build` fails to minify
+- #### *Four Types of Charts*
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  1. Default Confirmed Case Chart
+  2. Confirmed Case Chart with Median Filter
+  3. Confirmed Case Chart with Moving Average
+  4. Confirmed Case Chart with Median Filter and Moving Average
+
+## Technology 
+
+- [React.JS](https://reactjs.org/)
+
+- [Chart.JS](https://www.chartjs.org/)
+
+- [Material UI](https://mui.com/)
+- [Semantic UI React](https://react.semantic-ui.com/)
