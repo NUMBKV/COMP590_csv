@@ -54,12 +54,12 @@ export default class CsvToChart extends Component{
         this.onBtnClick = this.handleBtnClick.bind( this );
     }
 
+    /* Collecting node-element and performing click */
     handleBtnClick() {
-        /*Collecting node-element and performing click*/
         this.inputFileRef.current.click();
     }
 
-
+    /* Load and process the content of the csv file that the user has uploaded */
     submit(){
         const reader = new FileReader();
 
@@ -73,12 +73,10 @@ export default class CsvToChart extends Component{
         reader.readAsText(this.state.csvFile);
     }
 
-
-
-
-
+    /* If the user hasn't uploaded a valid csv file, or entered a valid URL,
+       the "Show The Chart" button needs to be disabled and cannot be pressed
+     */
     disabledButton(){
-
         if(this.state.csvFile){
             return false;
         } else if(isURL(this.state.csvURL)){
@@ -87,16 +85,14 @@ export default class CsvToChart extends Component{
         return true;
     }
 
-
-
-
-
-
+    /* Given the attribute value, construct option drop down list and attribute drop down list
+    * according to it */
     selectAttributeValue(e, {value}){
         let dropDownList = attributeValueList(this.state.csvArray, value);
 
         this.state.optionDropDownList = [];
 
+        // if there is no date in the attribute list, needs to deal with it
         if(!isDateHeader(this.state.attributeList)){
           let noDateList = this.state.attributeList.filter(function(ele){
               return ele !== value;
@@ -117,6 +113,8 @@ export default class CsvToChart extends Component{
         });
     }
 
+    /* Set attribute value option according to the given value
+    *  If the value is too long, need to set split attribute */
     selectAttributeValueOption(e, {value}){
         if(value.length >= 2){
             this.setState({split: "True"});
@@ -124,51 +122,61 @@ export default class CsvToChart extends Component{
         this.setState({attributeValueOption:value})
     }
 
+    /* Set lgDisplay attribute value in state */
     selectGridValue(e, {value}){
        this.setState({lgDisplay: value});
     }
 
+    /* Set shiftDays attribute value in state */
     selectShiftDays(e, {value}){
         this.setState({shiftDays: value});
     }
 
+    /* Set split attribute value in state */
     selectIsSplit(e, {value}){
         if(this.state.attributeValueOption.length >= 2){
             this.setState({split: "True"});
         } else {
             this.setState({split: value});
         }
-
     }
 
+    /* Set movingAverageDays attribute value in state */
     selectMovingAverageDays(e, {value}){
         this.setState({movingAverageDays: value});
     }
 
+    /* Set medianFiltersDays attribute value in state */
     selectMedianFilterDays(e, {value}){
         this.setState({medianFiltersDays: value});
     }
 
+    /* Set csvURL attribute value in state according to the value of example url */
     selectExamples(e, {value}){
         this.setState({csvURL: exampleUrl(value), exampleState: value});
     }
 
+    /* Set removeOutlier attribute value in state */
     selectRemoveOutliers(e, {value}){
         this.setState({removeOutlier: value})
     }
 
+    /* Set year attribute value in state */
     selectYear(e, {value}){
         this.setState({year: value});
     }
 
+    /* Set monthFrom attribute value in state */
     selectMonthFrom(e, {value}){
         this.setState({monthFrom: value});
     }
 
+    /* Set monthTo attribute value in state */
     selectMonthTo(e, {value}){
         this.setState({monthTo: value});
     }
 
+    /* If need to clear input, the values in state need to be reset */
     clearInput(){
         this.setState({
             attributeValue: "",
@@ -177,14 +185,13 @@ export default class CsvToChart extends Component{
         });
     }
 
+    /* Use this function to draw the graph we need
+    * First need to check whether the values are all entered,
+    * If so, call the searchBarManyChartsFunction function to depict the graph
+    * */
     graphWidget(){
        if(this.state.csvArray.length === 0){
-            // return (
-            //     <div>
-            //         <Label pointing>Please click "Show The Chart" button after uploading</Label>
-            //     </div>)
-
-        } else if(!this.state.attributeValue){
+        } else if(!this.state.attributeValue) {
             return (
                 <div>
                     <Label pointing>
@@ -193,7 +200,7 @@ export default class CsvToChart extends Component{
 
                 </div>
             )
-        }else if(this.state.attributeValueOption.length === 0){
+        } else if(this.state.attributeValueOption.length === 0) {
             return (
                 <div className={"centerDiv"}>
                     <Label pointing>
@@ -201,7 +208,7 @@ export default class CsvToChart extends Component{
                     </Label>
                 </div>
             )
-        }else{
+        } else{ // If the values needed are selected correctly
             let dataObject =  processData(this.state.csvArray, this.state.attributeList, this.state.attributeValue);
             let data2020 = dataObject["2020"], data2021 = dataObject["2021"];
             let selectedList = [];
@@ -243,7 +250,8 @@ export default class CsvToChart extends Component{
         }
     }
 
-
+    /* The webpage view for users to upload csv file or enter csv url,
+    * Pass the values to state for further use */
     csvUpload(){
         if(localStorage.getItem("selection") === "file"){
             return (
@@ -276,7 +284,6 @@ export default class CsvToChart extends Component{
             console.log(returnFullState())
             return (
                 <div>
-
                     <Label pointing>Please enter the valid URL</Label>
                     <Dropdown
                         button
@@ -287,12 +294,13 @@ export default class CsvToChart extends Component{
                         style = {{"height": "90%"}}
                         onChange = {this.selectExamples.bind(this)}
                     />
-
                 </div>
             );
         }
     }
 
+    /* If the display grid has changed, needs to modify the value
+    * Call selectGridValue function to reset the value */
     changeDisplayGrid(){
         let list = [1, 2, 3, 4, 5];
         return (
@@ -311,8 +319,18 @@ export default class CsvToChart extends Component{
         );
     }
 
-
-
+    /* These are the options that users can choose
+    * The first item includes Split and Outliers
+    *   For Split, the values users can choose are {True, False}
+    *   For Outliers, the values users can choose are {Remove, Keep}
+    * The second item includes Median Filters Days and Moving Average Days
+    *   For Median Filters Days, the values users can choose are 0 day to 29 days
+    *   For Moving Average Days, the values users can choose are 0 day to 29 days
+    * The third iterm includes Year, Month From and Month To
+    *   For Year, the values users can choose are {2020, 2021}
+    *   For Month From, the values users can choose are from January to December
+    *   For Month To, the values users can choose are from January to December
+    * */
     simulateOption(){
         return (<div>
             <Segment className={"displayInOneRowThreeItems"}>
@@ -337,19 +355,12 @@ export default class CsvToChart extends Component{
                             placeholder='False'
                             onChange = {this.selectRemoveOutliers.bind(this)}
                         />
-
-
-
-
-
-
                     </Form.Group>
                 </Form>
             </Segment>
             <Segment className={"displayInOneRowThreeItems"}>
                 <Form>
                     <Form.Group widths='equal'>
-
                         <Form.Field
                             control={Dropdown}
                             label='Median Filters Days'
@@ -359,6 +370,7 @@ export default class CsvToChart extends Component{
                             placeholder='Median Filters'
                             onChange = {this.selectMedianFilterDays.bind(this)}
                         />
+
                         <Form.Field
                             control={Dropdown}
                             label='Moving Average Days'
@@ -368,7 +380,6 @@ export default class CsvToChart extends Component{
                             placeholder='Moving Average Days'
                             onChange = {this.selectMovingAverageDays.bind(this)}
                         />
-
                     </Form.Group>
                 </Form>
             </Segment>
@@ -404,23 +415,18 @@ export default class CsvToChart extends Component{
                             placeholder='None'
                             onChange = {this.selectMonthTo.bind(this)}
                         />
-
-
-
-
-
                     </Form.Group>
                 </Form>
             </Segment>
         </div>)
     }
 
+    /* Set open attribute value in state */
     setOpen(value){
         this.setState({open: value});
     }
 
-
-
+    /* The view that will appear upon selecting some values */
     popupModals(){
         console.log(1);
         if(this.state.exampleState !== ""){
@@ -429,7 +435,6 @@ export default class CsvToChart extends Component{
                     type: 'success',
                     icon: 'envelope',
                     title: `${this.state.exampleState} was selected`,
-
                     time: 1500
                 });
             }, 500);
@@ -441,9 +446,12 @@ export default class CsvToChart extends Component{
         } else {
             return <div></div>
         }
-
     }
 
+    /* This function is used to render the whole page
+    * Besides the logos and the field to enter URL,
+    * there are drop down lists for x-axis, y-axis and grid for users to choose
+    */
     render(){
         if(this.state.csvLoading){
             return (
@@ -496,7 +504,6 @@ export default class CsvToChart extends Component{
                                                 optionDropDownList: [],
                                                 attributeValueOption:[],
                                             })
-
                                         }
                                     }
 
@@ -530,6 +537,7 @@ export default class CsvToChart extends Component{
                                 placeholder='Attribute value...'
                                 onChange = {this.selectAttributeValue.bind(this)}
                             />
+
                             <Form.Field
                                 control={Dropdown}
                                 label='Options (y-axis)'
@@ -539,6 +547,7 @@ export default class CsvToChart extends Component{
                                 placeholder=''
                                 onChange = {this.selectAttributeValueOption.bind(this)}
                             />
+                            .
                             <Form.Field
                                 control={Dropdown}
                                 label='Grid'
@@ -548,8 +557,6 @@ export default class CsvToChart extends Component{
                                 placeholder='Value...'
                                 onChange = {this.selectGridValue.bind(this)}
                             />
-
-
                         </Form.Group>
                     </Form>
                 </Segment>
