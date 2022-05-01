@@ -7,6 +7,7 @@ export function attributeList(str, delim=','){
     return headers;
 }
 
+/* Construct a value list of the given attribute for csvToChart to use */
 export function attributeValueList(arr, attribute){
     let list = [];
     for(let i = 0; i < arr.length; i += 1){
@@ -22,6 +23,7 @@ export function attributeValueList(arr, attribute){
     return list;
 }
 
+/* Parse the given string and construct a new array */
 export function processCSV(str, delim=','){
     const headers = str.slice(0,str.indexOf('\n')).split(delim);
     const rows = str.slice(str.indexOf('\n')+1).split('\n');
@@ -37,7 +39,7 @@ export function processCSV(str, delim=','){
     return newArray;
 }
 
-
+/* Check if there exists date in the attribute list */
 export function isDateHeader(attributeList){
     let dateHeader = false;
     for(let i = 0; i < attributeList.length; i += 1){
@@ -49,7 +51,10 @@ export function isDateHeader(attributeList){
     return dateHeader;
 }
 
-
+/* The goal of this function is to parse the attribute list in two situations.
+    Need to first check whether there is a date in the list
+    Then deal with attributes with date and without date differently
+ */
 export function processData(arr, attributeList, attributeName){
 
     let dateHeader = false;
@@ -61,13 +66,13 @@ export function processData(arr, attributeList, attributeName){
     }
 
     if(dateHeader){
-
         return parseDateHeader(arr, attributeName);
     } else {
         return parseNoDateHeader(arr, attributeName);
     }
 }
 
+/* Convert the url to JSON */
 export async function getJSONFromUrl(url) {
     let postURLOption = {
         credentials: 'include',
@@ -91,6 +96,7 @@ export async function getJSONFromUrl(url) {
 
 }
 
+/* Generate the objects for different years using date information */
 export function parseDateHeader(arr, attributeName){
     let data2020 = Array(12).fill(0).map(row => new Array(31).fill().map(Object));
     let data2021 = Array(12).fill(0).map(row => new Array(31).fill().map(Object));
@@ -116,13 +122,14 @@ export function parseDateHeader(arr, attributeName){
         }
     }
 
-
     let object = {};
     object["2020"] = data2020;
     object["2021"] = data2021;
     object["2022"] = data2022;
     return object;
 }
+
+/* Fill the objects for data2020, data2021 and data2022 using attribute name information */
 export function parseNoDateHeader(arr, attributeName){
     let data2020 = Array(12).fill(0).map(row => new Array(31).fill().map(Object));
     let data2021 = Array(12).fill(0).map(row => new Array(31).fill().map(Object));
@@ -164,10 +171,12 @@ export function parseNoDateHeader(arr, attributeName){
     return {"2020": data2020, "2021": data2021, "2022": data2022};
 }
 
+/* Check if the date is in correct format */
 export function isDate(date){
     return date.split("/").length === 3;
 }
 
+/* Convert every element in the string to integer, and construct a new list */
 export function returnDateList(str) {
     let splitList = str.split("/");
     for(let i = 0; i < splitList.length; i += 1) {
@@ -176,14 +185,17 @@ export function returnDateList(str) {
     return splitList;
 }
 
+/* Remove all blank space from given string */
 export function removeSpace(str){
     return str.replace(/\s+/g, "");
 }
 
+/* Check whether the given object is an empty object */
 export function isEmptyObject(obj){
     return JSON.stringify(obj) === "{}";
 }
 
+/* Given a list, put the unique elements in to the option list in certain format */
 export function returnDropDownOption(list){
     let optionList = [];
     let newList = removeDuplicates(list);
@@ -195,6 +207,7 @@ export function returnDropDownOption(list){
     return optionList;
 }
 
+/* Remove the duplicate elements in the list */
 export function removeDuplicates(list){
     let obj = {};
     return list.map(function (ele){
@@ -206,6 +219,7 @@ export function removeDuplicates(list){
 
 }
 
+/* Generate the example url */
 export function exampleUrl(str){
     let url = "https://raw.githubusercontent.com/";
     url += "NUMBKV/COMP590-Data-Processing/main/daily_cases/new_daily_states_county/confirmed_cases_";
@@ -213,6 +227,7 @@ export function exampleUrl(str){
     return url;
 }
 
+/* Check whether the url is valid using pattern */
 export function isURL(str) {
     var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
